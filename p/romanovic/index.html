@@ -26,6 +26,7 @@
   .wrap{max-width:640px;margin:0 auto}
   header{padding:34px 0 10px;text-align:center}
   .logo{
+    display:block;margin:0 auto;
     width:96px;height:96px;border-radius:50%;
     filter:drop-shadow(0 0 24px rgba(255,77,46,.35));
     user-select:none;-webkit-user-drag:none;
@@ -61,7 +62,7 @@
   .card.playing .play{padding-left:0}
   .tinfo{flex:1;min-width:0}
   .ttitle{font-size:18px;font-weight:700;letter-spacing:.01em}
-  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
   .chip{
     font-size:11px;font-weight:600;letter-spacing:.04em;
     padding:3px 9px;border-radius:99px;color:var(--sub);
@@ -106,9 +107,11 @@
   }
   footer a{color:var(--accent);text-decoration:none;font-weight:600}
   .foot-note{margin-top:6px;font-size:12px;color:var(--muted)}
-  @media (max-width:480px){
+  @media (max-width:520px){
     .row{flex-wrap:wrap}
-    .buy{flex:1;text-align:center;margin-top:4px}
+    .buy{flex:1 1 100%;text-align:center;margin-top:8px;padding:12px 18px}
+    .ttitle{font-size:17px}
+    .logo{width:84px;height:84px}
   }
 </style>
 </head>
@@ -128,16 +131,16 @@
         <button class="play" aria-label="Play La Verdolaga">▶</button>
         <div class="tinfo">
           <div class="ttitle">La Verdolaga</div>
-          <div class="chips">
-            <span class="chip genre">Trap</span>
-            <span class="chip">164 BPM</span>
-            <span class="chip">Key A</span>
-            <span class="chip">Minimal banger</span>
-            <span class="chip">Hype</span>
-          </div>
         </div>
         <div class="eq"><i></i><i></i><i></i><i></i></div>
         <a class="buy" href="https://rabeatz1.beatstars.com/" target="_blank" rel="noopener">Buy</a>
+      </div>
+      <div class="chips">
+        <span class="chip genre">Trap</span>
+        <span class="chip">164 BPM</span>
+        <span class="chip">Key A</span>
+        <span class="chip">Minimal banger</span>
+        <span class="chip">Hype</span>
       </div>
       <div class="progress"><div class="bar"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
     </div>
@@ -147,16 +150,16 @@
         <button class="play" aria-label="Play Amore">▶</button>
         <div class="tinfo">
           <div class="ttitle">Amore</div>
-          <div class="chips">
-            <span class="chip genre">Latin Urban</span>
-            <span class="chip">106 BPM</span>
-            <span class="chip">Key Dm</span>
-            <span class="chip">Romantic</span>
-            <span class="chip">Dance</span>
-          </div>
         </div>
         <div class="eq"><i></i><i></i><i></i><i></i></div>
         <a class="buy" href="https://rabeatz1.beatstars.com/" target="_blank" rel="noopener">Buy</a>
+      </div>
+      <div class="chips">
+        <span class="chip genre">Latin Urban</span>
+        <span class="chip">106 BPM</span>
+        <span class="chip">Key Dm</span>
+        <span class="chip">Romantic</span>
+        <span class="chip">Dance</span>
       </div>
       <div class="progress"><div class="bar"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
     </div>
@@ -166,16 +169,16 @@
         <button class="play" aria-label="Play Missile">▶</button>
         <div class="tinfo">
           <div class="ttitle">Missile</div>
-          <div class="chips">
-            <span class="chip genre">Trap</span>
-            <span class="chip">180 BPM</span>
-            <span class="chip">Fast</span>
-            <span class="chip">Hard</span>
-            <span class="chip">Dark</span>
-          </div>
         </div>
         <div class="eq"><i></i><i></i><i></i><i></i></div>
         <a class="buy" href="https://rabeatz1.beatstars.com/" target="_blank" rel="noopener">Buy</a>
+      </div>
+      <div class="chips">
+        <span class="chip genre">Trap</span>
+        <span class="chip">180 BPM</span>
+        <span class="chip">Fast</span>
+        <span class="chip">Hard</span>
+        <span class="chip">Dark</span>
       </div>
       <div class="progress"><div class="bar"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
     </div>
