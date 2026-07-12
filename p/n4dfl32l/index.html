@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Beats for MATTE — RaBeatz</title>
+<link rel="icon" type="image/png" href="logo.png">
+<script data-goatcounter="https://rabeatz1.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<style>
+  :root{
+    --bg:#0b0b10; --card:#14141c; --card-hi:#1b1b26;
+    --text:#f2f2f5; --sub:#9a9aad; --muted:#5c5c70;
+    --accent:#ff4d2e; --accent-soft:rgba(255,77,46,.12);
+    --green:#3ddc84; --border:#23232f;
+    --radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:radial-gradient(1200px 500px at 50% -10%, #1a1120 0%, var(--bg) 55%);
+    color:var(--text);
+    font-family:'Segoe UI', system-ui, -apple-system, sans-serif;
+    min-height:100vh;
+    padding:0 16px 60px;
+  }
+  .wrap{max-width:640px;margin:0 auto}
+  header{padding:34px 0 10px;text-align:center}
+  .logo{
+    display:block;margin:0 auto;
+    width:96px;height:96px;border-radius:50%;
+    filter:drop-shadow(0 0 24px rgba(255,77,46,.35));
+    user-select:none;-webkit-user-drag:none;
+  }
+  .brand{
+    display:inline-flex;align-items:center;gap:8px;margin-top:12px;
+    font-weight:800;font-size:14px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--sub);
+  }
+  .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  h1{
+    margin-top:18px;font-size:clamp(28px,6vw,40px);font-weight:800;line-height:1.15;
+  }
+  h1 .name{color:var(--accent)}
+  .lede{margin-top:10px;color:var(--sub);font-size:15px}
+  .cards{margin-top:34px;display:flex;flex-direction:column;gap:16px}
+  .card{
+    background:linear-gradient(180deg,var(--card-hi),var(--card));
+    border:1px solid var(--border);border-radius:var(--radius);
+    padding:18px;transition:border-color .25s, transform .25s;
+  }
+  .card.playing{border-color:var(--accent)}
+  .row{display:flex;align-items:center;gap:14px}
+  .play{
+    flex:none;width:52px;height:52px;border-radius:50%;
+    border:none;cursor:pointer;background:var(--accent);color:#fff;
+    font-size:19px;display:flex;align-items:center;justify-content:center;
+    transition:transform .15s, box-shadow .25s;
+    box-shadow:0 4px 18px rgba(255,77,46,.35);
+    padding-left:3px;
+  }
+  .play:active{transform:scale(.93)}
+  .card.playing .play{padding-left:0}
+  .tinfo{flex:1;min-width:0}
+  .ttitle{font-size:18px;font-weight:700;letter-spacing:.01em}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+  .chip{
+    font-size:11px;font-weight:600;letter-spacing:.04em;
+    padding:3px 9px;border-radius:99px;color:var(--sub);
+    background:rgba(255,255,255,.05);border:1px solid var(--border);
+    white-space:nowrap;
+  }
+  .chip.genre{color:var(--accent);background:var(--accent-soft);border-color:transparent}
+  .buy{
+    flex:none;text-decoration:none;
+    background:transparent;color:var(--text);
+    border:1px solid var(--border);border-radius:10px;
+    font-weight:700;font-size:13px;padding:11px 18px;
+    transition:background .2s,border-color .2s,color .2s;
+    white-space:nowrap;
+  }
+  .buy:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+  .progress{
+    margin-top:14px;height:26px;display:none;align-items:center;gap:10px;cursor:pointer;
+  }
+  .card.started .progress{display:flex}
+  .bar{
+    flex:1;height:5px;border-radius:99px;background:rgba(255,255,255,.08);
+    position:relative;overflow:hidden;
+  }
+  .fill{
+    position:absolute;inset:0;width:0%;
+    background:linear-gradient(90deg,var(--accent),#ff8b5e);
+    border-radius:99px;
+  }
+  .time{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;flex:none;min-width:76px;text-align:right}
+  .eq{display:none;flex:none;align-items:flex-end;gap:2.5px;height:20px}
+  .card.playing .eq{display:flex}
+  .eq i{width:3.5px;background:var(--accent);border-radius:2px;animation:eq 0.9s ease-in-out infinite}
+  .eq i:nth-child(1){animation-delay:0s;height:40%}
+  .eq i:nth-child(2){animation-delay:.22s;height:85%}
+  .eq i:nth-child(3){animation-delay:.11s;height:60%}
+  .eq i:nth-child(4){animation-delay:.34s;height:95%}
+  @keyframes eq{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
+  footer{
+    margin-top:44px;text-align:center;color:var(--sub);font-size:14px;line-height:1.7;
+  }
+  footer a{color:var(--accent);text-decoration:none;font-weight:600}
+  .foot-note{margin-top:6px;font-size:12px;color:var(--muted)}
+  .social{display:flex;justify-content:center;gap:16px;margin-top:14px}
+  .social a{
+    display:flex;align-items:center;justify-content:center;
+    width:34px;height:34px;border-radius:50%;
+    color:var(--sub);border:1px solid var(--border);
+    transition:color .2s,border-color .2s,background .2s;
+  }
+  .social a:hover{color:var(--text);border-color:var(--accent);background:var(--accent-soft)}
+  .social svg{width:16px;height:16px;fill:currentColor}
+  .license{margin-top:30px;text-align:left}
+  .license summary{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    cursor:pointer;list-style:none;text-align:center;
+    background:var(--card-hi);border:1px solid var(--border);border-radius:999px;
+    padding:13px 20px;
+    font-size:14px;color:var(--text);font-weight:700;
+    letter-spacing:.01em;user-select:none;
+    transition:border-color .2s,background .2s,color .2s;
+  }
+  .license summary::-webkit-details-marker{display:none}
+  .license summary:hover{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+  .license summary::after{content:'▾';font-size:11px;transition:transform .2s}
+  .license[open] summary::after{transform:rotate(180deg)}
+  .lic-grid{
+    margin-top:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;
+  }
+  .lic-tier{
+    background:var(--card);border:1px solid var(--border);border-radius:10px;
+    padding:12px;text-align:left;
+  }
+  .lic-tier.popular{border-color:var(--accent)}
+  .lic-star{font-size:10px;color:var(--accent);font-weight:700;letter-spacing:.04em}
+  .lic-name{font-size:12px;font-weight:700;color:var(--text);margin-top:2px}
+  .lic-price{font-size:17px;font-weight:800;color:var(--accent);margin-top:2px}
+  .lic-tier ul{margin-top:8px;padding-left:15px;color:var(--sub);font-size:11px;line-height:1.6}
+  .lic-tier.exclusive{
+    grid-column:1 / -1;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  }
+  .lic-tier.exclusive .lic-name{margin-top:0}
+  .lic-tier.exclusive .lic-head{flex:none}
+  .lic-tier.exclusive ul{
+    margin-top:0;padding-left:0;list-style:none;display:flex;gap:14px;flex-wrap:wrap;
+  }
+  .lic-tier.exclusive ul li{position:relative;padding-left:13px}
+  .lic-tier.exclusive ul li::before{content:'✓';position:absolute;left:0;color:var(--accent)}
+  .lic-note{margin-top:12px;font-size:11px;color:var(--muted);text-align:center}
+  @media (max-width:520px){
+    .row{flex-wrap:wrap}
+    .buy{flex:1 1 100%;text-align:center;margin-top:8px;padding:12px 18px}
+    .ttitle{font-size:17px}
+    .logo{width:84px;height:84px}
+    .lic-grid{grid-template-columns:repeat(2,1fr)}
+    .lic-tier.exclusive{flex-direction:column;align-items:flex-start}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img class="logo" src="logo.png" alt="RaBeatz logo">
+    <div class="brand"><span class="dot"></span>RaBeatz</div>
+    <h1>Beats for <span class="name">MATTE</span></h1>
+    <p class="lede">A hand-picked selection — tap play, find your vibe.</p>
+  </header>
+
+  <div class="cards">
+
+    <div class="card" data-src="best-bitch.mp3" data-slug="best-bitch">
+      <div class="row">
+        <button class="play" aria-label="Play Best Bitch">▶</button>
+        <div class="tinfo">
+          <div class="ttitle">Best Bitch</div>
+        </div>
+        <div class="eq"><i></i><i></i><i></i><i></i></div>
+        <a class="buy" href="https://bsta.rs/Pm2Mfi" target="_blank" rel="noopener">Buy</a>
+      </div>
+      <div class="chips">
+<span class="chip genre">Trap</span>
+        <span class="chip">116 BPM</span>
+        <span class="chip">Key C</span>
+        <span class="chip">Mid</span>
+        <span class="chip">Smoked</span>
+        <span class="chip">Minimal banger</span>
+        <span class="chip">Hype</span>
+      </div>
+      <div class="progress"><div class="bar"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+    </div>
+
+
+    <div class="card" data-src="next.mp3" data-slug="next">
+      <div class="row">
+        <button class="play" aria-label="Play Next">▶</button>
+        <div class="tinfo">
+          <div class="ttitle">Next</div>
+        </div>
+        <div class="eq"><i></i><i></i><i></i><i></i></div>
+        <a class="buy" href="https://bsta.rs/00cb83023" target="_blank" rel="noopener">Buy</a>
+      </div>
+      <div class="chips">
+<span class="chip genre">Trap</span>
+        <span class="chip">130 BPM</span>
+        <span class="chip">Mid</span>
+        <span class="chip">Hard</span>
+        <span class="chip">Minimal banger</span>
+        <span class="chip">Hype</span>
+      </div>
+      <div class="progress"><div class="bar"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+    </div>
+
+
+    <div class="card" data-src="real-adresses.mp3" data-slug="real-adresses">
+      <div class="row">
+        <button class="play" aria-label="Play Real Adresses">▶</button>
+        <div class="tinfo">
+          <div class="ttitle">Real Adresses</div>
+        </div>
+        <div class="eq"><i></i><i></i><i></i><i></i></div>
+        <a class="buy" href="https://bsta.rs/AKyafE" target="_blank" rel="noopener">Buy</a>
+      </div>
+      <div class="chips">
+<span class="chip genre">Trap</span>
+        <span class="chip">152 BPM</span>
+        <span class="chip">Key Em</span>
+        <span class="chip">Fast</span>
+        <span class="chip">Hard</span>
+        <span class="chip">Smoked</span>
+        <span class="chip">Focus</span>
+      </div>
+      <div class="progress"><div class="bar"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+    </div>
+
+
+    <div class="card" data-src="roadrunner.mp3" data-slug="roadrunner">
+      <div class="row">
+        <button class="play" aria-label="Play Roadrunner">▶</button>
+        <div class="tinfo">
+          <div class="ttitle">Roadrunner</div>
+        </div>
+        <div class="eq"><i></i><i></i><i></i><i></i></div>
+        <a class="buy" href="https://bsta.rs/2a99a93df" target="_blank" rel="noopener">Buy</a>
+      </div>
+      <div class="chips">
+<span class="chip genre">Trap</span>
+        <span class="chip">143 BPM</span>
+        <span class="chip">Mid</span>
+        <span class="chip">Hard</span>
+        <span class="chip">Focus</span>
+        <span class="chip">Dark</span>
+      </div>
+      <div class="progress"><div class="bar"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+    </div>
+
+
+    <div class="card" data-src="savage-mode.mp3" data-slug="savage-mode">
+      <div class="row">
+        <button class="play" aria-label="Play Savage Mode">▶</button>
+        <div class="tinfo">
+          <div class="ttitle">Savage Mode</div>
+        </div>
+        <div class="eq"><i></i><i></i><i></i><i></i></div>
+        <a class="buy" href="https://bsta.rs/fKOG4X" target="_blank" rel="noopener">Buy</a>
+      </div>
+      <div class="chips">
+<span class="chip genre">Trap</span>
+        <span class="chip">164 BPM</span>
+        <span class="chip">Key Am</span>
+        <span class="chip">Mid</span>
+        <span class="chip">Hard</span>
+        <span class="chip">Smooth</span>
+        <span class="chip">Атмосферний</span>
+      </div>
+      <div class="progress"><div class="bar"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+    </div>
+
+  </div>
+
+  <details class="license">
+    <summary>💲 Licensing &amp; pricing</summary>
+    <div class="lic-grid">
+      <div class="lic-tier">
+        <div class="lic-name">Basic MP3</div>
+        <div class="lic-price">$29</div>
+        <ul>
+          <li>Untagged MP3</li>
+          <li>Up to 100k streams</li>
+          <li>Credit required</li>
+        </ul>
+      </div>
+      <div class="lic-tier popular">
+        <div class="lic-star">★ POPULAR</div>
+        <div class="lic-name">Pro HQ WAV</div>
+        <div class="lic-price">$49</div>
+        <ul>
+          <li>Untagged WAV</li>
+          <li>Up to 500k streams</li>
+          <li>Credit required</li>
+        </ul>
+      </div>
+      <div class="lic-tier">
+        <div class="lic-name">Pro Trackout</div>
+        <div class="lic-price">$89</div>
+        <ul>
+          <li>MP3 + WAV + stems</li>
+          <li>Up to 1M streams</li>
+          <li>Credit required</li>
+        </ul>
+      </div>
+      <div class="lic-tier">
+        <div class="lic-name">Full Unlimited</div>
+        <div class="lic-price">$199</div>
+        <ul>
+          <li>MP3 + WAV + stems</li>
+          <li>Unlimited streams, forever</li>
+        </ul>
+      </div>
+      <div class="lic-tier exclusive">
+        <div class="lic-head">
+          <div class="lic-name">Exclusive</div>
+          <div class="lic-price">Offer</div>
+        </div>
+        <ul>
+          <li>Full ownership</li>
+          <li>Beat pulled from sale</li>
+        </ul>
+      </div>
+    </div>
+    <div class="lic-note">Bulk deal: buy 2 tracks, get 1 free · full terms on BeatStars checkout</div>
+  </details>
+
+  <footer>
+    Like what you hear? Hit me up — let's make a record.<br>
+    <a href="https://rabeatz1.beatstars.com/" target="_blank" rel="noopener">BeatStars</a>
+
+    <div class="social">
+      <a href="https://www.instagram.com/rabeatz1_/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M12 2c-2.72 0-3.06.01-4.12.06-1.06.05-1.79.22-2.43.47-.66.26-1.22.6-1.77 1.16a4.9 4.9 0 0 0-1.16 1.77c-.25.64-.42 1.37-.47 2.43C2 8.94 2 9.28 2 12s.01 3.06.06 4.12c.05 1.06.22 1.79.47 2.43.26.66.6 1.22 1.16 1.77.55.56 1.11.9 1.77 1.16.64.25 1.37.42 2.43.47C8.94 22 9.28 22 12 22s3.06-.01 4.12-.06c1.06-.05 1.79-.22 2.43-.47a4.9 4.9 0 0 0 1.77-1.16 4.9 4.9 0 0 0 1.16-1.77c.25-.64.42-1.37.47-2.43.05-1.06.06-1.4.06-4.12s-.01-3.06-.06-4.12c-.05-1.06-.22-1.79-.47-2.43a4.9 4.9 0 0 0-1.16-1.77 4.9 4.9 0 0 0-1.77-1.16c-.64-.25-1.37-.42-2.43-.47C15.06 2.01 14.72 2 12 2Zm0 1.8c2.67 0 2.99.01 4.04.06.98.04 1.5.2 1.86.34.47.18.8.4 1.15.75.35.35.57.68.75 1.15.14.36.3.88.34 1.86.05 1.05.06 1.37.06 4.04s-.01 2.99-.06 4.04c-.04.98-.2 1.5-.34 1.86-.18.47-.4.8-.75 1.15-.35.35-.68.57-1.15.75-.36.14-.88.3-1.86.34-1.05.05-1.37.06-4.04.06s-2.99-.01-4.04-.06c-.98-.04-1.5-.2-1.86-.34a3.1 3.1 0 0 1-1.15-.75 3.1 3.1 0 0 1-.75-1.15c-.14-.36-.3-.88-.34-1.86C3.81 14.99 3.8 14.67 3.8 12s.01-2.99.06-4.04c.04-.98.2-1.5.34-1.86.18-.47.4-.8.75-1.15.35-.35.68-.57 1.15-.75.36-.14.88-.3 1.86-.34C9.01 3.81 9.33 3.8 12 3.8Zm0 3.05a5.15 5.15 0 1 0 0 10.3 5.15 5.15 0 0 0 0-10.3Zm0 8.5a3.35 3.35 0 1 1 0-6.7 3.35 3.35 0 0 1 0 6.7Zm5.36-8.7a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z"/></svg>
+      </a>
+      <a href="https://x.com/rabeatz1" target="_blank" rel="noopener" aria-label="X (Twitter)">
+        <svg viewBox="0 0 24 24"><path d="M18.24 2.75h3.06l-6.69 7.65 7.87 10.85h-6.16l-4.83-6.33-5.52 6.33H2.9l7.16-8.19L2.5 2.75h6.32l4.37 5.78 5.05-5.78Zm-1.07 16.62h1.7L7.32 4.5H5.5l11.67 14.87Z"/></svg>
+      </a>
+      <a href="https://www.youtube.com/channel/UCUFfrvo7YY1dNvOKaq6Yxcg" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg viewBox="0 0 24 24"><path d="M23.5 6.5s-.23-1.64-.94-2.36c-.9-.94-1.9-.95-2.36-1C16.9 3 12 3 12 3h-.01s-4.9 0-8.2.14c-.46.05-1.46.06-2.36 1C.72 4.86.5 6.5.5 6.5S.27 8.42.27 10.34v1.8c0 1.92.23 3.84.23 3.84s.23 1.64.94 2.36c.9.95 2.07.92 2.6 1.02C5.97 19.5 12 19.56 12 19.56s4.9-.01 8.2-.15c.46-.06 1.46-.06 2.36-1 .71-.72.94-2.36.94-2.36s.23-1.92.23-3.84v-1.8c0-1.92-.23-3.84-.23-3.84ZM9.55 14.68V8.61l5.82 3.04-5.82 3.03Z"/></svg>
+      </a>
+    </div>
+
+    <div class="foot-note">prod. by RaBeatz © 2026</div>
+  </footer>
+</div>
+
+
+
+<script>
+(function(){
+  const TOKEN = 'n4dfl32l';
+  const sent = {};          // дедуплікація подій в межах візиту
+  function track(p){
+    if (sent[p]) return;
+    sent[p] = 1;
+    if (window.goatcounter && goatcounter.count) goatcounter.count({path: p, event: true});
+  }
+
+  const cards = [...document.querySelectorAll('.card')];
+  let current = null;
+
+  const fmt = s => {
+    if (!isFinite(s)) return '0:00';
+    const m = Math.floor(s/60), sec = Math.floor(s%60);
+    return m + ':' + String(sec).padStart(2,'0');
+  };
+
+  function stop(entry){
+    if (!entry) return;
+    entry.audio.pause();
+    entry.card.classList.remove('playing');
+    entry.card.querySelector('.play').textContent = '▶';
+  }
+
+  cards.forEach(card => {
+    const btn  = card.querySelector('.play');
+    const fill = card.querySelector('.fill');
+    const time = card.querySelector('.time');
+    const barW = card.querySelector('.progress');
+    const slug = card.dataset.slug;
+    let audio = null;
+
+    card.querySelector('.buy').addEventListener('click', () => track('ev/'+TOKEN+'/buy/'+slug));
+
+    function ensureAudio(){
+      if (audio) return audio;
+      audio = new Audio(card.dataset.src);
+      audio.preload = 'metadata';
+      audio.addEventListener('timeupdate', () => {
+        if (audio.duration) fill.style.width = (audio.currentTime/audio.duration*100) + '%';
+        time.textContent = fmt(audio.currentTime) + ' / ' + fmt(audio.duration);
+        if (audio.currentTime >= 30) track('ev/'+TOKEN+'/30s/'+slug);
+      });
+      audio.addEventListener('ended', () => {
+        track('ev/'+TOKEN+'/end/'+slug);
+        card.classList.remove('playing');
+        btn.textContent = '▶';
+        fill.style.width = '0%';
+      });
+      return audio;
+    }
+
+    btn.addEventListener('click', () => {
+      const a = ensureAudio();
+      if (current && current.card !== card) stop(current);
+      if (a.paused){
+        track('ev/'+TOKEN+'/play/'+slug);
+        a.play();
+        card.classList.add('playing','started');
+        btn.textContent = '❚❚';
+        current = {card, audio:a};
+      } else {
+        a.pause();
+        card.classList.remove('playing');
+        btn.textContent = '▶';
+      }
+    });
+
+    barW.addEventListener('click', e => {
+      const a = ensureAudio();
+      if (!a.duration) return;
+      const bar = card.querySelector('.bar');
+      const r = bar.getBoundingClientRect();
+      const x = Math.min(Math.max(e.clientX - r.left, 0), r.width);
+      a.currentTime = (x / r.width) * a.duration;
+    });
+  });
+})();
+</script>
+</body>
+</html>
