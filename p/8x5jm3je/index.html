@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Beats for crygol2 — RaBeatz</title>
+<link rel="icon" type="image/png" href="logo.png">
+<script data-goatcounter="https://rabeatz1.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<style>
+  :root{
+    --bg:#0b0b10; --card:#14141c; --card-hi:#1b1b26;
+    --text:#f2f2f5; --sub:#9a9aad; --muted:#5c5c70;
+    --accent:#ff4d2e; --accent-soft:rgba(255,77,46,.12);
+    --green:#3ddc84; --border:#23232f;
+    --radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:radial-gradient(1200px 500px at 50% -10%, #1a1120 0%, var(--bg) 55%);
+    color:var(--text);
+    font-family:'Segoe UI', system-ui, -apple-system, sans-serif;
+    min-height:100vh;
+    padding:0 16px 60px;
+  }
+  .wrap{max-width:640px;margin:0 auto}
+  header{padding:34px 0 10px;text-align:center}
+  .logo{
+    display:block;margin:0 auto;
+    width:96px;height:96px;border-radius:50%;
+    filter:drop-shadow(0 0 24px rgba(255,77,46,.35));
+    user-select:none;-webkit-user-drag:none;
+  }
+  .brand{
+    display:inline-flex;align-items:center;gap:8px;margin-top:12px;
+    font-weight:800;font-size:14px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--sub);
+  }
+  .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  h1{
+    margin-top:18px;font-size:clamp(28px,6vw,40px);font-weight:800;line-height:1.15;
+  }
+  h1 .name{color:var(--accent)}
+  .lede{margin-top:10px;color:var(--sub);font-size:15px}
+  .cards{margin-top:34px;display:flex;flex-direction:column;gap:16px}
+  .card{
+    background:linear-gradient(180deg,var(--card-hi),var(--card));
+    border:1px solid var(--border);border-radius:var(--radius);
+    padding:18px;transition:border-color .25s, transform .25s;
+  }
+  .card.playing{border-color:var(--accent)}
+  .row{display:flex;align-items:center;gap:14px}
+  .play{
+    flex:none;width:52px;height:52px;border-radius:50%;
+    border:none;cursor:pointer;background:var(--accent);color:#fff;
+    font-size:19px;display:flex;align-items:center;justify-content:center;
+    transition:transform .15s, box-shadow .25s;
+    box-shadow:0 4px 18px rgba(255,77,46,.35);
+    padding-left:3px;
+  }
+  .play:active{transform:scale(.93)}
+  .card.playing .play{padding-left:0}
+  .tinfo{flex:1;min-width:0}
+  .ttitle{font-size:18px;font-weight:700;letter-spacing:.01em}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+  .chip{
+    font-size:11px;font-weight:600;letter-spacing:.04em;
+    padding:3px 9px;border-radius:99px;color:var(--sub);
+    background:rgba(255,255,255,.05);border:1px solid var(--border);
+    white-space:nowrap;
+  }
+  .chip.genre{color:var(--accent);background:var(--accent-soft);border-color:transparent}
+  .buy{
+    flex:none;text-decoration:none;
+    background:transparent;color:var(--text);
+    border:1px solid var(--border);border-radius:10px;
+    font-weight:700;font-size:13px;padding:11px 18px;
+    transition:background .2s,border-color .2s,color .2s;
+    white-space:nowrap;
+  }
+  .buy:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+  .progress{
+    margin-top:14px;height:26px;display:none;align-items:center;gap:10px;cursor:pointer;
+  }
+  .card.started .progress{display:flex}
+  .bar{
+    flex:1;height:5px;border-radius:99px;background:rgba(255,255,255,.08);
+    position:relative;overflow:hidden;
+  }
+  .fill{
+    position:absolute;inset:0;width:0%;
+    background:linear-gradient(90deg,var(--accent),#ff8b5e);
+    border-radius:99px;
+  }
+  .time{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;flex:none;min-width:76px;text-align:right}
+  .eq{display:none;flex:none;align-items:flex-end;gap:2.5px;height:20px}
+  .card.playing .eq{display:flex}
+  .eq i{width:3.5px;background:var(--accent);border-radius:2px;animation:eq 0.9s ease-in-out infinite}
+  .eq i:nth-child(1){animation-delay:0s;height:40%}
+  .eq i:nth-child(2){animation-delay:.22s;height:85%}
+  .eq i:nth-child(3){animation-delay:.11s;height:60%}
+  .eq i:nth-child(4){animation-delay:.34s;height:95%}
+  @keyframes eq{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
+  footer{
+    margin-top:44px;text-align:center;color:var(--sub);font-size:14px;line-height:1.7;
+  }
+  footer a{color:var(--accent);text-decoration:none;font-weight:600}
+  .foot-note{margin-top:6px;font-size:12px;color:var(--muted)}
+  @media (max-width:520px){
+    .row{flex-wrap:wrap}
+    .buy{flex:1 1 100%;text-align:center;margin-top:8px;padding:12px 18px}
+    .ttitle{font-size:17px}
+    .logo{width:84px;height:84px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img class="logo" src="logo.png" alt="RaBeatz logo">
+    <div class="brand"><span class="dot"></span>RaBeatz</div>
+    <h1>Beats for <span class="name">crygol2</span></h1>
+    <p class="lede">A hand-picked selection — tap play, find your vibe.</p>
+  </header>
+
+  <div class="cards">
+
+    <div class="card" data-src="amore.mp3" data-slug="amore">
+      <div class="row">
+        <button class="play" aria-label="Play Amore">▶</button>
+        <div class="tinfo">
+          <div class="ttitle">Amore</div>
+        </div>
+        <div class="eq"><i></i><i></i><i></i><i></i></div>
+        <a class="buy" href="https://bsta.rs/2219350d5" target="_blank" rel="noopener">Buy</a>
+      </div>
+      <div class="chips">
+<span class="chip genre">Latin Urban</span>
+        <span class="chip">106 BPM</span>
+        <span class="chip">Key Dm</span>
+        <span class="chip">Mid</span>
+        <span class="chip">Атмосферний</span>
+        <span class="chip">Dance</span>
+        <span class="chip">Romantic</span>
+      </div>
+      <div class="progress"><div class="bar"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+    </div>
+
+
+    <div class="card" data-src="late-night.mp3" data-slug="late-night">
+      <div class="row">
+        <button class="play" aria-label="Play Late Night">▶</button>
+        <div class="tinfo">
+          <div class="ttitle">Late Night</div>
+        </div>
+        <div class="eq"><i></i><i></i><i></i><i></i></div>
+        <a class="buy" href="https://bsta.rs/2atTAd" target="_blank" rel="noopener">Buy</a>
+      </div>
+      <div class="chips">
+<span class="chip genre">R&amp;B</span>
+        <span class="chip">90 BPM</span>
+        <span class="chip">Key G#m</span>
+        <span class="chip">Fast</span>
+        <span class="chip">Ambient</span>
+        <span class="chip">Bedroom</span>
+        <span class="chip">Атмосферний</span>
+      </div>
+      <div class="progress"><div class="bar"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+    </div>
+
+
+    <div class="card" data-src="let-em-know.mp3" data-slug="let-em-know">
+      <div class="row">
+        <button class="play" aria-label="Play Let Em Know">▶</button>
+        <div class="tinfo">
+          <div class="ttitle">Let Em Know</div>
+        </div>
+        <div class="eq"><i></i><i></i><i></i><i></i></div>
+        <a class="buy" href="https://bsta.rs/D4jMxn" target="_blank" rel="noopener">Buy</a>
+      </div>
+      <div class="chips">
+<span class="chip genre">R&amp;B</span>
+        <span class="chip">88 BPM</span>
+        <span class="chip">Key B</span>
+        <span class="chip">Fast</span>
+        <span class="chip">Bedroom</span>
+        <span class="chip">Sexy</span>
+        <span class="chip">Dramatic</span>
+      </div>
+      <div class="progress"><div class="bar"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+    </div>
+
+
+    <div class="card" data-src="toxic.mp3" data-slug="toxic">
+      <div class="row">
+        <button class="play" aria-label="Play Toxic">▶</button>
+        <div class="tinfo">
+          <div class="ttitle">Toxic</div>
+        </div>
+        <div class="eq"><i></i><i></i><i></i><i></i></div>
+        <a class="buy" href="https://bsta.rs/F0AWvt" target="_blank" rel="noopener">Buy</a>
+      </div>
+      <div class="chips">
+<span class="chip genre">R&amp;B</span>
+        <span class="chip">118 BPM</span>
+        <span class="chip">Key Bm</span>
+        <span class="chip">Slow</span>
+      </div>
+      <div class="progress"><div class="bar"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+    </div>
+
+
+    <div class="card" data-src="walk-on.mp3" data-slug="walk-on">
+      <div class="row">
+        <button class="play" aria-label="Play Walk On">▶</button>
+        <div class="tinfo">
+          <div class="ttitle">Walk On</div>
+        </div>
+        <div class="eq"><i></i><i></i><i></i><i></i></div>
+        <a class="buy" href="https://bsta.rs/X9oKko" target="_blank" rel="noopener">Buy</a>
+      </div>
+      <div class="chips">
+<span class="chip genre">R&amp;B</span>
+        <span class="chip">94 BPM</span>
+        <span class="chip">Key F</span>
+        <span class="chip">Mid</span>
+        <span class="chip">Hard</span>
+        <span class="chip">Sexy</span>
+        <span class="chip">Smooth</span>
+      </div>
+      <div class="progress"><div class="bar"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+    </div>
+
+  </div>
+
+  <footer>
+    Like what you hear? Hit me up — let's make a record.<br>
+    <a href="https://rabeatz1.beatstars.com/" target="_blank" rel="noopener">BeatStars</a>
+    <div class="foot-note">prod. by RaBeatz © 2026</div>
+  </footer>
+</div>
+
+
+
+<script>
+(function(){
+  const TOKEN = '8x5jm3je';
+  const sent = {};          // дедуплікація подій в межах візиту
+  function track(p){
+    if (sent[p]) return;
+    sent[p] = 1;
+    if (window.goatcounter && goatcounter.count) goatcounter.count({path: p, event: true});
+  }
+
+  const cards = [...document.querySelectorAll('.card')];
+  let current = null;
+
+  const fmt = s => {
+    if (!isFinite(s)) return '0:00';
+    const m = Math.floor(s/60), sec = Math.floor(s%60);
+    return m + ':' + String(sec).padStart(2,'0');
+  };
+
+  function stop(entry){
+    if (!entry) return;
+    entry.audio.pause();
+    entry.card.classList.remove('playing');
+    entry.card.querySelector('.play').textContent = '▶';
+  }
+
+  cards.forEach(card => {
+    const btn  = card.querySelector('.play');
+    const fill = card.querySelector('.fill');
+    const time = card.querySelector('.time');
+    const barW = card.querySelector('.progress');
+    const slug = card.dataset.slug;
+    let audio = null;
+
+    card.querySelector('.buy').addEventListener('click', () => track('ev/'+TOKEN+'/buy/'+slug));
+
+    function ensureAudio(){
+      if (audio) return audio;
+      audio = new Audio(card.dataset.src);
+      audio.preload = 'metadata';
+      audio.addEventListener('timeupdate', () => {
+        if (audio.duration) fill.style.width = (audio.currentTime/audio.duration*100) + '%';
+        time.textContent = fmt(audio.currentTime) + ' / ' + fmt(audio.duration);
+        if (audio.currentTime >= 30) track('ev/'+TOKEN+'/30s/'+slug);
+      });
+      audio.addEventListener('ended', () => {
+        track('ev/'+TOKEN+'/end/'+slug);
+        card.classList.remove('playing');
+        btn.textContent = '▶';
+        fill.style.width = '0%';
+      });
+      return audio;
+    }
+
+    btn.addEventListener('click', () => {
+      const a = ensureAudio();
+      if (current && current.card !== card) stop(current);
+      if (a.paused){
+        track('ev/'+TOKEN+'/play/'+slug);
+        a.play();
+        card.classList.add('playing','started');
+        btn.textContent = '❚❚';
+        current = {card, audio:a};
+      } else {
+        a.pause();
+        card.classList.remove('playing');
+        btn.textContent = '▶';
+      }
+    });
+
+    barW.addEventListener('click', e => {
+      const a = ensureAudio();
+      if (!a.duration) return;
+      const bar = card.querySelector('.bar');
+      const r = bar.getBoundingClientRect();
+      const x = Math.min(Math.max(e.clientX - r.left, 0), r.width);
+      a.currentTime = (x / r.width) * a.duration;
+    });
+  });
+})();
+</script>
+</body>
+</html>
