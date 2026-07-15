@@ -364,11 +364,21 @@
 (function(){
   const TOKEN = 'hi5cvyu0';
   const sent = {};          // дедуплікація подій в межах візиту
+  function send(p){         // без дедупу — для подій, де важлива кількість (replay)
+    if (window.goatcounter && goatcounter.count) goatcounter.count({path: p, event: true});
+  }
   function track(p){
     if (sent[p]) return;
     sent[p] = 1;
-    if (window.goatcounter && goatcounter.count) goatcounter.count({path: p, event: true});
+    send(p);
   }
+
+  // повторний візит: той самий браузер, нова сесія (перерва 30+ хв)
+  try {
+    const k = 'rb-last-' + TOKEN, prev = +localStorage.getItem(k) || 0;
+    if (prev && Date.now() - prev > 30 * 60 * 1000) track('ev/' + TOKEN + '/return');
+    localStorage.setItem(k, Date.now());
+  } catch(e){}
 
   const cards = [...document.querySelectorAll('.card')];
   let current = null;
@@ -403,7 +413,9 @@
       audio.addEventListener('timeupdate', () => {
         if (audio.duration) fill.style.width = (audio.currentTime/audio.duration*100) + '%';
         time.textContent = fmt(audio.currentTime) + ' / ' + fmt(audio.duration);
+        if (audio.currentTime >= 10) track('ev/'+TOKEN+'/10s/'+slug);
         if (audio.currentTime >= 30) track('ev/'+TOKEN+'/30s/'+slug);
+        if (audio.currentTime >= 60) track('ev/'+TOKEN+'/60s/'+slug);
       });
       audio.addEventListener('ended', () => {
         track('ev/'+TOKEN+'/end/'+slug);
@@ -418,7 +430,10 @@
       const a = ensureAudio();
       if (current && current.card !== card) stop(current);
       if (a.paused){
-        track('ev/'+TOKEN+'/play/'+slug);
+        const pkey = 'ev/'+TOKEN+'/play/'+slug;
+        // повторний запуск з початку (не resume з середини) — сигнал «переслуховує»
+        if (sent[pkey] && (a.ended || a.currentTime < 2)) send('ev/'+TOKEN+'/replay/'+slug);
+        track(pkey);
         a.play();
         card.classList.add('playing','started');
         btn.textContent = '❚❚';

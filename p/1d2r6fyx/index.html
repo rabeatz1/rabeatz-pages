@@ -116,16 +116,20 @@
   }
   .social a:hover{color:var(--text);border-color:var(--accent);background:var(--accent-soft)}
   .social svg{width:16px;height:16px;fill:currentColor}
-  .license{margin-top:22px;text-align:left}
+  .license{margin-top:30px;text-align:left}
   .license summary{
-    text-align:center;cursor:pointer;list-style:none;
-    font-size:12px;color:var(--muted);font-weight:600;
-    letter-spacing:.03em;user-select:none;
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    cursor:pointer;list-style:none;text-align:center;
+    background:var(--card-hi);border:1px solid var(--border);border-radius:999px;
+    padding:13px 20px;
+    font-size:14px;color:var(--text);font-weight:700;
+    letter-spacing:.01em;user-select:none;
+    transition:border-color .2s,background .2s,color .2s;
   }
   .license summary::-webkit-details-marker{display:none}
-  .license summary:hover{color:var(--sub)}
-  .license summary::after{content:' ▾';font-size:10px}
-  .license[open] summary::after{content:' ▴'}
+  .license summary:hover{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+  .license summary::after{content:'▾';font-size:11px;transition:transform .2s}
+  .license[open] summary::after{transform:rotate(180deg)}
   .lic-grid{
     margin-top:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;
   }
@@ -138,6 +142,17 @@
   .lic-name{font-size:12px;font-weight:700;color:var(--text);margin-top:2px}
   .lic-price{font-size:17px;font-weight:800;color:var(--accent);margin-top:2px}
   .lic-tier ul{margin-top:8px;padding-left:15px;color:var(--sub);font-size:11px;line-height:1.6}
+  .lic-tier.exclusive{
+    grid-column:1 / -1;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  }
+  .lic-tier.exclusive .lic-name{margin-top:0}
+  .lic-tier.exclusive .lic-head{flex:none}
+  .lic-tier.exclusive ul{
+    margin-top:0;padding-left:0;list-style:none;display:flex;gap:14px;flex-wrap:wrap;
+  }
+  .lic-tier.exclusive ul li{position:relative;padding-left:13px}
+  .lic-tier.exclusive ul li::before{content:'✓';position:absolute;left:0;color:var(--accent)}
   .lic-note{margin-top:12px;font-size:11px;color:var(--muted);text-align:center}
   @media (max-width:520px){
     .row{flex-wrap:wrap}
@@ -145,6 +160,7 @@
     .ttitle{font-size:17px}
     .logo{width:84px;height:84px}
     .lic-grid{grid-template-columns:repeat(2,1fr)}
+    .lic-tier.exclusive{flex-direction:column;align-items:flex-start}
   }
 </style>
 </head>
@@ -203,6 +219,59 @@
 
   </div>
 
+  <details class="license">
+    <summary>💲 Licensing &amp; pricing</summary>
+    <div class="lic-grid">
+      <div class="lic-tier">
+        <div class="lic-name">Basic MP3</div>
+        <div class="lic-price">$29</div>
+        <ul>
+          <li>Untagged MP3</li>
+          <li>Up to 100k streams</li>
+          <li>Credit required</li>
+        </ul>
+      </div>
+      <div class="lic-tier popular">
+        <div class="lic-star">★ POPULAR</div>
+        <div class="lic-name">Pro HQ WAV</div>
+        <div class="lic-price">$49</div>
+        <ul>
+          <li>Untagged WAV</li>
+          <li>Up to 500k streams</li>
+          <li>Credit required</li>
+        </ul>
+      </div>
+      <div class="lic-tier">
+        <div class="lic-name">Pro Trackout</div>
+        <div class="lic-price">$89</div>
+        <ul>
+          <li>MP3 + WAV + stems</li>
+          <li>Up to 1M streams</li>
+          <li>Credit required</li>
+        </ul>
+      </div>
+      <div class="lic-tier">
+        <div class="lic-name">Full Unlimited</div>
+        <div class="lic-price">$199</div>
+        <ul>
+          <li>MP3 + WAV + stems</li>
+          <li>Unlimited streams, forever</li>
+        </ul>
+      </div>
+      <div class="lic-tier exclusive">
+        <div class="lic-head">
+          <div class="lic-name">Exclusive</div>
+          <div class="lic-price">Offer</div>
+        </div>
+        <ul>
+          <li>Full ownership</li>
+          <li>Beat pulled from sale</li>
+        </ul>
+      </div>
+    </div>
+    <div class="lic-note">Bulk deal: buy 2 tracks, get 1 free · full terms on BeatStars checkout</div>
+  </details>
+
   <footer>
     Like what you hear? Hit me up — let's make a record.<br>
     <a href="https://rabeatz1.beatstars.com/" target="_blank" rel="noopener">BeatStars</a>
@@ -219,57 +288,6 @@
       </a>
     </div>
 
-    <details class="license">
-      <summary>Licensing &amp; pricing</summary>
-      <div class="lic-grid">
-        <div class="lic-tier">
-          <div class="lic-name">Basic MP3</div>
-          <div class="lic-price">$29</div>
-          <ul>
-            <li>Untagged MP3</li>
-            <li>Up to 100k streams</li>
-            <li>Credit required</li>
-          </ul>
-        </div>
-        <div class="lic-tier popular">
-          <div class="lic-star">★ POPULAR</div>
-          <div class="lic-name">Pro HQ WAV</div>
-          <div class="lic-price">$49</div>
-          <ul>
-            <li>Untagged WAV</li>
-            <li>Up to 500k streams</li>
-            <li>Credit required</li>
-          </ul>
-        </div>
-        <div class="lic-tier">
-          <div class="lic-name">Pro Trackout</div>
-          <div class="lic-price">$89</div>
-          <ul>
-            <li>MP3 + WAV + stems</li>
-            <li>Up to 1M streams</li>
-            <li>Credit required</li>
-          </ul>
-        </div>
-        <div class="lic-tier">
-          <div class="lic-name">Full Unlimited</div>
-          <div class="lic-price">$199</div>
-          <ul>
-            <li>MP3 + WAV + stems</li>
-            <li>Unlimited streams, forever</li>
-          </ul>
-        </div>
-        <div class="lic-tier">
-          <div class="lic-name">Exclusive</div>
-          <div class="lic-price">Offer</div>
-          <ul>
-            <li>Full ownership</li>
-            <li>Beat pulled from sale</li>
-          </ul>
-        </div>
-      </div>
-      <div class="lic-note">Bulk deal: buy 2 tracks, get 1 free · full terms on BeatStars checkout</div>
-    </details>
-
     <div class="foot-note">prod. by RaBeatz © 2026</div>
   </footer>
 </div>
@@ -280,11 +298,21 @@
 (function(){
   const TOKEN = '1d2r6fyx';
   const sent = {};          // дедуплікація подій в межах візиту
+  function send(p){         // без дедупу — для подій, де важлива кількість (replay)
+    if (window.goatcounter && goatcounter.count) goatcounter.count({path: p, event: true});
+  }
   function track(p){
     if (sent[p]) return;
     sent[p] = 1;
-    if (window.goatcounter && goatcounter.count) goatcounter.count({path: p, event: true});
+    send(p);
   }
+
+  // повторний візит: той самий браузер, нова сесія (перерва 30+ хв)
+  try {
+    const k = 'rb-last-' + TOKEN, prev = +localStorage.getItem(k) || 0;
+    if (prev && Date.now() - prev > 30 * 60 * 1000) track('ev/' + TOKEN + '/return');
+    localStorage.setItem(k, Date.now());
+  } catch(e){}
 
   const cards = [...document.querySelectorAll('.card')];
   let current = null;
@@ -319,7 +347,9 @@
       audio.addEventListener('timeupdate', () => {
         if (audio.duration) fill.style.width = (audio.currentTime/audio.duration*100) + '%';
         time.textContent = fmt(audio.currentTime) + ' / ' + fmt(audio.duration);
+        if (audio.currentTime >= 10) track('ev/'+TOKEN+'/10s/'+slug);
         if (audio.currentTime >= 30) track('ev/'+TOKEN+'/30s/'+slug);
+        if (audio.currentTime >= 60) track('ev/'+TOKEN+'/60s/'+slug);
       });
       audio.addEventListener('ended', () => {
         track('ev/'+TOKEN+'/end/'+slug);
@@ -334,7 +364,10 @@
       const a = ensureAudio();
       if (current && current.card !== card) stop(current);
       if (a.paused){
-        track('ev/'+TOKEN+'/play/'+slug);
+        const pkey = 'ev/'+TOKEN+'/play/'+slug;
+        // повторний запуск з початку (не resume з середини) — сигнал «переслуховує»
+        if (sent[pkey] && (a.ended || a.currentTime < 2)) send('ev/'+TOKEN+'/replay/'+slug);
+        track(pkey);
         a.play();
         card.classList.add('playing','started');
         btn.textContent = '❚❚';
