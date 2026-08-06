@@ -6,6 +6,22 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Beats for Anzayn Official — RaBeatz</title>
 <link rel="icon" type="image/png" href="logo.png">
+<!-- Прев'ю посилання в Instagram / Telegram / WhatsApp. og.png — картка 1200×630
+     з іменем артиста, генерується разом зі сторінкою (server.py, _og_make_image). -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="RaBeatz">
+<meta property="og:title" content="Beats for Anzayn Official">
+<meta property="og:description" content="5 tracks handpicked for Anzayn Official — listen right in the browser, no signup.">
+<meta property="og:url" content="https://rabeatz1.github.io/rabeatz-pages/p/0y6qmfn9/">
+<meta property="og:image" content="https://rabeatz1.github.io/rabeatz-pages/p/0y6qmfn9/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Beats for Anzayn Official — RaBeatz">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Beats for Anzayn Official">
+<meta name="twitter:description" content="5 tracks handpicked for Anzayn Official — listen right in the browser, no signup.">
+<meta name="twitter:image" content="https://rabeatz1.github.io/rabeatz-pages/p/0y6qmfn9/og.png">
+<meta name="theme-color" content="#0b0b10">
 <script data-goatcounter="https://rabeatz1.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <style>
   :root{
@@ -71,15 +87,70 @@
     white-space:nowrap;
   }
   .chip.genre{color:var(--accent);background:var(--accent-soft);border-color:transparent}
-  .buy{
-    flex:none;text-decoration:none;
+  .actions{flex:none;display:flex;align-items:center;gap:8px}
+  .buy,.dl{
+    flex:none;text-decoration:none;cursor:pointer;
     background:transparent;color:var(--text);
     border:1px solid var(--border);border-radius:10px;
     font-weight:700;font-size:13px;padding:11px 18px;
+    font-family:inherit;line-height:1.2;
     transition:background .2s,border-color .2s,color .2s;
     white-space:nowrap;
   }
   .buy:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+  .dl{color:var(--sub);padding:11px 14px}
+  .dl:hover{color:var(--green);border-color:var(--green)}
+  .dl:active{transform:scale(.97)}
+  .dl.got{color:var(--green);border-color:var(--green)}
+
+  /* ── Модалка «безкоштовне завантаження» ─────────────────────── */
+  .dlov{
+    position:fixed;inset:0;z-index:60;display:none;
+    align-items:center;justify-content:center;padding:18px;
+    background:rgba(5,5,9,.74);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);
+  }
+  .dlov.on{display:flex}
+  .dlbox{
+    position:relative;width:100%;max-width:440px;max-height:88vh;overflow:auto;
+    background:linear-gradient(180deg,var(--card-hi),var(--card));
+    border:1px solid var(--border);border-radius:18px;padding:24px 22px 22px;
+    box-shadow:0 24px 60px rgba(0,0,0,.55);
+    animation:pop .18s ease-out;
+  }
+  @keyframes pop{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:none}}
+  .dlx{
+    position:absolute;top:12px;right:12px;width:30px;height:30px;
+    border:none;background:transparent;color:var(--muted);
+    font-size:22px;line-height:1;cursor:pointer;border-radius:50%;
+  }
+  .dlx:hover{color:var(--text);background:rgba(255,255,255,.06)}
+  .dlbox h2{font-size:20px;font-weight:800;line-height:1.25;padding-right:26px}
+  .dl-track{margin-top:6px;font-size:13px;color:var(--accent);font-weight:700}
+  .dl-lead{margin-top:12px;font-size:14px;color:var(--sub);line-height:1.6}
+  .dl-list{margin-top:14px;display:flex;flex-direction:column;gap:12px}
+  .dl-col-t{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+  .dl-col.ok .dl-col-t{color:var(--green)}
+  .dl-col.no .dl-col-t{color:var(--accent)}
+  .dl-col ul{margin-top:6px;padding-left:16px;font-size:13px;color:var(--sub);line-height:1.65}
+  .dl-note{
+    margin-top:14px;padding-top:12px;border-top:1px dashed var(--border);
+    font-size:12.5px;color:var(--muted);line-height:1.6;
+  }
+  .dl-note b{color:var(--text)}
+  .dl-agree{
+    margin-top:16px;width:100%;border:none;cursor:pointer;
+    background:var(--accent);color:#fff;border-radius:12px;
+    font-family:inherit;font-weight:800;font-size:15px;padding:14px 18px;
+    box-shadow:0 6px 22px rgba(255,77,46,.32);
+    transition:transform .15s,filter .2s;
+  }
+  .dl-agree:hover{filter:brightness(1.08)}
+  .dl-agree:active{transform:scale(.98)}
+  .dl-cancel{
+    margin-top:8px;width:100%;border:none;background:transparent;cursor:pointer;
+    color:var(--muted);font-family:inherit;font-size:13px;font-weight:600;padding:9px;
+  }
+  .dl-cancel:hover{color:var(--sub)}
   .progress{
     margin-top:14px;height:26px;display:none;align-items:center;gap:10px;cursor:pointer;
   }
@@ -142,6 +213,7 @@
   .lic-name{font-size:12px;font-weight:700;color:var(--text);margin-top:2px}
   .lic-price{font-size:17px;font-weight:800;color:var(--accent);margin-top:2px}
   .lic-tier ul{margin-top:8px;padding-left:15px;color:var(--sub);font-size:11px;line-height:1.6}
+  .lic-promo{margin-top:8px;padding-top:8px;border-top:1px dashed var(--border);font-size:10px;font-weight:700;color:var(--accent);letter-spacing:.02em}
   .lic-tier.exclusive{
     grid-column:1 / -1;
     display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
@@ -156,80 +228,13 @@
   .lic-note{margin-top:12px;font-size:11px;color:var(--muted);text-align:center}
   @media (max-width:520px){
     .row{flex-wrap:wrap}
-    .buy{flex:1 1 100%;text-align:center;margin-top:8px;padding:12px 18px}
+    .actions{flex:1 1 100%;margin-top:10px}
+    .buy,.dl{flex:1 1 0;text-align:center;padding:12px 10px}
+    .dlbox{padding:20px 18px 18px}
     .ttitle{font-size:17px}
     .logo{width:84px;height:84px}
     .lic-grid{grid-template-columns:repeat(2,1fr)}
     .lic-tier.exclusive{flex-direction:column;align-items:flex-start}
-  }
-
-  /* ── Безкоштовне завантаження ───────────────────────────────── */
-  .actions{flex:none;display:flex;align-items:center;gap:8px}
-  .buy{line-height:1.2}   /* щоб Buy і Download були однакової висоти */
-  .dl{
-    flex:none;text-decoration:none;cursor:pointer;
-    background:transparent;color:var(--sub);
-    border:1px solid var(--border);border-radius:10px;
-    font-weight:700;font-size:13px;padding:11px 14px;
-    font-family:inherit;line-height:1.2;
-    transition:background .2s,border-color .2s,color .2s;
-    white-space:nowrap;
-  }
-  .dl:hover{color:var(--green);border-color:var(--green)}
-  .dl:active{transform:scale(.97)}
-  .dl.got{color:var(--green);border-color:var(--green)}
-
-  .dlov{
-    position:fixed;inset:0;z-index:60;display:none;
-    align-items:center;justify-content:center;padding:18px;
-    background:rgba(5,5,9,.74);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);
-  }
-  .dlov.on{display:flex}
-  .dlbox{
-    position:relative;width:100%;max-width:440px;max-height:88vh;overflow:auto;
-    background:linear-gradient(180deg,var(--card-hi),var(--card));
-    border:1px solid var(--border);border-radius:18px;padding:24px 22px 22px;
-    box-shadow:0 24px 60px rgba(0,0,0,.55);
-    animation:dlpop .18s ease-out;
-  }
-  @keyframes dlpop{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:none}}
-  .dlx{
-    position:absolute;top:12px;right:12px;width:30px;height:30px;
-    border:none;background:transparent;color:var(--muted);
-    font-size:22px;line-height:1;cursor:pointer;border-radius:50%;
-  }
-  .dlx:hover{color:var(--text);background:rgba(255,255,255,.06)}
-  .dlbox h2{font-size:20px;font-weight:800;line-height:1.25;padding-right:26px}
-  .dl-track{margin-top:6px;font-size:13px;color:var(--accent);font-weight:700}
-  .dl-lead{margin-top:12px;font-size:14px;color:var(--sub);line-height:1.6}
-  .dl-list{margin-top:14px;display:flex;flex-direction:column;gap:12px}
-  .dl-col-t{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
-  .dl-col.ok .dl-col-t{color:var(--green)}
-  .dl-col.no .dl-col-t{color:var(--accent)}
-  .dl-col ul{margin-top:6px;padding-left:16px;font-size:13px;color:var(--sub);line-height:1.65}
-  .dl-note{
-    margin-top:14px;padding-top:12px;border-top:1px dashed var(--border);
-    font-size:12.5px;color:var(--muted);line-height:1.6;
-  }
-  .dl-note b{color:var(--text)}
-  .dl-agree{
-    margin-top:16px;width:100%;border:none;cursor:pointer;
-    background:var(--accent);color:#fff;border-radius:12px;
-    font-family:inherit;font-weight:800;font-size:15px;padding:14px 18px;
-    box-shadow:0 6px 22px rgba(255,77,46,.32);
-    transition:transform .15s,filter .2s;
-  }
-  .dl-agree:hover{filter:brightness(1.08)}
-  .dl-agree:active{transform:scale(.98)}
-  .dl-cancel{
-    margin-top:8px;width:100%;border:none;background:transparent;cursor:pointer;
-    color:var(--muted);font-family:inherit;font-size:13px;font-weight:600;padding:9px;
-  }
-  .dl-cancel:hover{color:var(--sub)}
-  @media (max-width:520px){
-    .actions{flex:1 1 100%;margin-top:10px}
-    .buy,.dl{flex:1 1 0;text-align:center;margin-top:0;padding:12px 10px}
-    .dlbox{padding:20px 18px 18px}
   }
 </style>
 </head>
@@ -244,7 +249,7 @@
 
   <div class="cards">
 
-    <div class="card" data-src="../../a/answer.mp3" data-slug="answer">
+    <div class="card" data-src="https://pub-457ea8e0e47144a7a2b300c0045a6ed3.r2.dev/answer.mp3" data-slug="answer">
       <div class="row">
         <button class="play" aria-label="Play Answer">▶</button>
         <div class="tinfo">
@@ -269,7 +274,7 @@
     </div>
 
 
-    <div class="card" data-src="../../a/forever.mp3" data-slug="forever">
+    <div class="card" data-src="https://pub-457ea8e0e47144a7a2b300c0045a6ed3.r2.dev/forever.mp3" data-slug="forever">
       <div class="row">
         <button class="play" aria-label="Play Forever">▶</button>
         <div class="tinfo">
@@ -284,6 +289,7 @@
       <div class="chips">
 <span class="chip genre">Trap</span>
         <span class="chip">144 BPM</span>
+        <span class="chip">Key Cm</span>
         <span class="chip">Mid</span>
         <span class="chip">Sexy</span>
         <span class="chip">Smooth</span>
@@ -293,7 +299,7 @@
     </div>
 
 
-    <div class="card" data-src="../../a/joy.mp3" data-slug="joy">
+    <div class="card" data-src="https://pub-457ea8e0e47144a7a2b300c0045a6ed3.r2.dev/joy.mp3" data-slug="joy">
       <div class="row">
         <button class="play" aria-label="Play Joy">▶</button>
         <div class="tinfo">
@@ -318,7 +324,7 @@
     </div>
 
 
-    <div class="card" data-src="../../a/let-em-know.mp3" data-slug="let-em-know">
+    <div class="card" data-src="https://pub-457ea8e0e47144a7a2b300c0045a6ed3.r2.dev/let-em-know.mp3" data-slug="let-em-know">
       <div class="row">
         <button class="play" aria-label="Play Let Em Know">▶</button>
         <div class="tinfo">
@@ -343,7 +349,7 @@
     </div>
 
 
-    <div class="card" data-src="../../a/losses.mp3" data-slug="losses">
+    <div class="card" data-src="https://pub-457ea8e0e47144a7a2b300c0045a6ed3.r2.dev/losses.mp3" data-slug="losses">
       <div class="row">
         <button class="play" aria-label="Play Losses">▶</button>
         <div class="tinfo">
@@ -380,6 +386,7 @@
           <li>Up to 100k streams</li>
           <li>Credit required</li>
         </ul>
+        <div class="lic-promo">🎁 Buy 2 – Get 1 Free</div>
       </div>
       <div class="lic-tier popular">
         <div class="lic-star">★ POPULAR</div>
@@ -390,6 +397,7 @@
           <li>Up to 500k streams</li>
           <li>Credit required</li>
         </ul>
+        <div class="lic-promo">🎁 Buy 2 – Get 1 Free</div>
       </div>
       <div class="lic-tier">
         <div class="lic-name">Pro Trackout</div>
@@ -399,6 +407,7 @@
           <li>Up to 1M streams</li>
           <li>Credit required</li>
         </ul>
+        <div class="lic-promo">🎁 Buy 2 – Get 1 Free</div>
       </div>
       <div class="lic-tier">
         <div class="lic-name">Full Unlimited</div>
@@ -407,6 +416,7 @@
           <li>MP3 + WAV + stems</li>
           <li>Unlimited streams, forever</li>
         </ul>
+        <div class="lic-promo">🎁 Buy 2 – Get 1 Free</div>
       </div>
       <div class="lic-tier exclusive">
         <div class="lic-head">
@@ -441,8 +451,6 @@
     <div class="foot-note">prod. by RaBeatz © 2026</div>
   </footer>
 </div>
-
-
 
 <div class="dlov" id="dlov" role="dialog" aria-modal="true" aria-labelledby="dl-h">
   <div class="dlbox">
@@ -480,6 +488,8 @@
   </div>
 </div>
 
+
+
 <script>
 (function(){
   const TOKEN = '0y6qmfn9';
@@ -516,11 +526,10 @@
     entry.card.querySelector('.play').textContent = '▶';
   }
 
-  // ── Безкоштовне завантаження у два кроки ────────────────
-  // Крок 1 (dl)   — натиснув «Download», побачив умови.
+  // ── Безкоштовне завантаження у два кроки ──────────────────────────
+  // Крок 1 (dl)   — натиснув «Free», побачив умови.
   // Крок 2 (dlok) — прочитав і погодився, файл пішов.
-  const DL_TOKEN = (typeof TOKEN !== 'undefined') ? TOKEN : '0y6qmfn9';
-  const dlTrack  = (typeof track === 'function') ? track : function(){};
+  // Дві окремі події → видно, хто злякався умов, а хто таки скачав.
   const dlov     = document.getElementById('dlov');
   const dlTitle  = document.getElementById('dl-track');
   let   dlItem   = null;
@@ -536,13 +545,13 @@
     dlTitle.textContent = item.title;
     dlov.classList.add('on');
     document.body.style.overflow = 'hidden';
-    dlTrack('ev/'+DL_TOKEN+'/dl/'+item.slug);
+    track('ev/'+TOKEN+'/dl/'+item.slug);
   }
 
   function dlConfirm(){
     if (!dlItem) return;
     const item = dlItem;
-    dlTrack('ev/'+DL_TOKEN+'/dlok/'+item.slug);
+    track('ev/'+TOKEN+'/dlok/'+item.slug);
     const a = document.createElement('a');
     a.href = item.src;
     a.download = item.title.replace(/[\\\/:*?"<>|]/g, '').trim() + ' (prod. RaBeatz).mp3';
@@ -573,9 +582,8 @@
     card.querySelector('.buy').addEventListener('click', () => track('ev/'+TOKEN+'/buy/'+slug));
 
     const dlBtn = card.querySelector('.dl');
-    if (dlBtn) dlBtn.addEventListener('click', () => dlOpen({
-      slug:  card.dataset.slug || card.querySelector('.ttitle').textContent.trim()
-               .toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''),
+    dlBtn.addEventListener('click', () => dlOpen({
+      slug,
       title: card.querySelector('.ttitle').textContent.trim(),
       src:   card.dataset.src,
       btn:   dlBtn,
